@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playground Gemini API</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Axios via CDN (Já disponível globalmente como 'axios') -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4 font-sans">
+
+  <!-- Card Principal -->
+  <main class="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+    
+    <!-- Cabeçalho -->
+    <header class="bg-slate-800/60 border-b border-slate-800 px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+        <h1 class="text-lg font-bold tracking-wide text-slate-100">Consumindo API do Gemini</h1>
+      </div>
+      <!-- Badge opcional para exibir o "modelo_utilizado" do seu JSON -->
+      <span id="badge-modelo" class="text-xs font-mono bg-slate-950 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">
+        Aguardando requisição...
+      </span>
+    </header>
+
+    <!-- Corpo / Área de Interação -->
+    <div class="p-6 space-y-6">
+      
+      <!-- Formulário de Pergunta -->
+      <form id="form-chat" class="space-y-3">
+        <label for="input-prompt" class="block text-sm font-medium text-slate-300">
+          Faça uma pergunta para a IA:
+        </label>
+        
+        <div class="flex gap-3">
+          <input 
+            type="text" 
+            id="input-prompt" 
+            placeholder="Ex: Quem foi o campeão da Copa do Mundo de 2002?" 
+            required
+            class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+          />
+          
+          <button 
+            type="submit" 
+            id="btn-enviar"
+            class="bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          >
+            <span>Enviar</span>
+            <!-- Ícone SVG de envio -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <!-- Divisória -->
+      <div class="border-t border-slate-800"></div>
+
+      <!-- Área de Resposta -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Resposta do Servidor</span>
+          
+          <!-- Indicador de Loading (Começa escondido com a classe 'hidden') -->
+          <div id="loading" class="hidden flex items-center gap-2 text-xs text-indigo-400">
+            <svg class="animate-spin h-4 w-4 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Consultando o Gemini...</span>
+          </div>
+        </div>
+
+        <!-- Caixa onde o texto da resposta será injetado -->
+        <div 
+          id="area-resposta" 
+          class="min-h-[160px] max-h-[400px] overflow-y-auto bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-300 leading-relaxed whitespace-pre-wrap font-normal"
+        >A resposta da inteligência artificial aparecerá aqui...</div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="./src/main.js"></script>
+</body>
+</html>
